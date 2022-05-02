@@ -1,0 +1,22 @@
+services:
+  hapi:
+    image: hapiproject/hapi:v5.7.0
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    environment:
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/hapi_dstu3
+      - spring.datasource.username=vaccination-pass-server
+      - spring.datasource.password=supersecret
+      - spring.datasource.driverClassName=org.postgresql.Driver
+      - spring.jpa.properties.hibernate.dialect=ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect
+
+  postgres:
+    image: postgres:14.2
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=hapi_dstu3
+      - POSTGRES_USER=vaccination-pass-server
+      - POSTGRES_PASSWORD=supersecret
