@@ -1,0 +1,10 @@
+fhirclient:
+  rest:
+    base:
+      url: 'http://localhost:9080/fhir-server/api/v4'
+  basicauth:
+    enabled: 'true'
+    username: 'fhiruser'
+    password: 'supersecret'
+  logging:
+    enabled: 'false'

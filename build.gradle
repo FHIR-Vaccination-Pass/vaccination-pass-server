@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.quarkus'
+    id 'io.freefair.lombok' version '6.4.3.1'
 }
 
 repositories {
@@ -11,10 +12,14 @@ repositories {
 dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+    implementation 'io.quarkus:quarkus-config-yaml'
     implementation 'io.quarkus:quarkus-oidc'
     implementation 'io.quarkus:quarkus-keycloak-authorization'
     implementation 'io.quarkus:quarkus-arc'
     testImplementation 'io.quarkus:quarkus-junit5'
+
+    def ibmFhirVersion = '4.11.1'
+    implementation "com.ibm.fhir:fhir-client:${ibmFhirVersion}"
 }
 
 group 'org.fhirvp'

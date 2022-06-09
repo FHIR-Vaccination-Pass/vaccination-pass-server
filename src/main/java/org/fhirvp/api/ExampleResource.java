@@ -1,4 +1,4 @@
-package org.fhirvp.resource;
+package org.fhirvp.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
