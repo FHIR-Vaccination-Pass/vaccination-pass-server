@@ -1,4 +1,4 @@
-package org.fhirvp.repository.fhir;
+package org.fhirvp.ports.impl.fhir;
 
 import com.ibm.fhir.client.FHIRClient;
 import com.ibm.fhir.client.FHIRClientFactory;
@@ -9,12 +9,12 @@ import javax.inject.Inject;
 import java.util.Properties;
 
 @ApplicationScoped
-public class FHIRRepository {
+public class FHIRClientProvider {
     @Getter
     FHIRClient fhirClient;
 
     @Inject
-    FHIRRepository(FHIRRepositoryConfig config) throws Exception {
+    FHIRClientProvider(FHIRClientConfig config) throws Exception {
         var clientProperties = new Properties();
         clientProperties.setProperty(FHIRClient.PROPNAME_BASE_URL, config.rest().base().url());
         clientProperties.setProperty(FHIRClient.PROPNAME_BASIC_AUTH_ENABLED, config.basicauth().enabled());

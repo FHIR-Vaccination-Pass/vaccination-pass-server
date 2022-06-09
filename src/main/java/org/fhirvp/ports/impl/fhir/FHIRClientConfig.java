@@ -1,9 +1,9 @@
-package org.fhirvp.repository.fhir;
+package org.fhirvp.ports.impl.fhir;
 
 import io.smallrye.config.ConfigMapping;
 
 @ConfigMapping(prefix = "fhirclient")
-interface FHIRRepositoryConfig {
+interface FHIRClientConfig {
     interface Rest {
         interface Base {
             String url();
