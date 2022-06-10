@@ -6,6 +6,7 @@ services:
       - 9443:9443
     volumes:
       - './ibm-fhir-config/server.xml:/opt/ol/wlp/usr/servers/defaultServer/server.xml'
+      - './ibm-fhir-config/userlib/:/opt/ol/wlp/usr/servers/defaultServer/userlib'
     environment:
       BOOTSTRAP_DB: true
       FHIR_USER_PASSWORD: supersecret
