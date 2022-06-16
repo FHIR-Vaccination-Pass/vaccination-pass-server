@@ -1,6 +1,6 @@
 services:
   ibm-fhir:
-    image: ibmcom/ibm-fhir-server
+    image: ibmcom/ibm-fhir-server:4.11.1
     ports:
       - 9080:9080
       - 9443:9443
