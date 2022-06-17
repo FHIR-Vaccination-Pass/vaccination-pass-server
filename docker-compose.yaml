@@ -2,24 +2,30 @@ services:
   ibm-fhir:
     image: ibmcom/ibm-fhir-server:4.11.1
     ports:
-      - 9080:9080
       - 9443:9443
     volumes:
-      - './ibm-fhir-config/server.xml:/opt/ol/wlp/usr/servers/defaultServer/server.xml'
-      - './ibm-fhir-config/userlib/:/opt/ol/wlp/usr/servers/defaultServer/userlib'
+      - './config-ibm-fhir/server.xml:/opt/ol/wlp/usr/servers/defaultServer/server.xml'
+      - './config-ibm-fhir/resources/security/fhirKeyStore.p12:/opt/ol/wlp/usr/servers/defaultServer/resources/security/fhirKeyStore.p12'
+      - './config-ibm-fhir/userlib/:/opt/ol/wlp/usr/servers/defaultServer/userlib'
     environment:
+      # https://ibm.github.io/FHIR/guides/FHIRServerUsersGuide/#21-installing-a-new-server
       BOOTSTRAP_DB: true
       FHIR_USER_PASSWORD: supersecret
       FHIR_ADMIN_PASSWORD: extrasecret
 
   keycloak:
     image: quay.io/keycloak/keycloak:18.0.1
-    command: 'start  --hostname-strict=false --https-key-store-file=/etc/keycloak-keystore.jks --import-realm'
+    command: 'start --import-realm'
     ports:
-      - 8443:8443
+      - 10443:10443
     volumes:
-      - './keycloak-config/keycloak-keystore.jks:/etc/keycloak-keystore.jks'
-      - './keycloak-config/quarkus-realm.json:/opt/keycloak/data/import/quarkus-realm.json'
+      - './config-keycloak/keycloak-keystore.p12:/etc/keycloak-keystore.p12'
+      - './config-keycloak/quarkus-realm.json:/opt/keycloak/data/import/quarkus-realm.json'
     environment:
+      # https://www.keycloak.org/server/all-config
+      KC_HTTPS_PORT: 10443
+      KC_HOSTNAME_STRICT: false
+      KC_HTTPS_KEY_STORE_FILE: /etc/keycloak-keystore.p12
+      KC_HTTPS_KEY_STORE_PASSWORD: changeit
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
