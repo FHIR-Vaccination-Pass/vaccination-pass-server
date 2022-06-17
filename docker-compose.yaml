@@ -11,3 +11,15 @@ services:
       BOOTSTRAP_DB: true
       FHIR_USER_PASSWORD: supersecret
       FHIR_ADMIN_PASSWORD: extrasecret
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:18.0.1
+    command: 'start  --hostname-strict=false --https-key-store-file=/etc/keycloak-keystore.jks --import-realm'
+    ports:
+      - 8443:8443
+    volumes:
+      - './keycloak-config/keycloak-keystore.jks:/etc/keycloak-keystore.jks'
+      - './keycloak-config/quarkus-realm.json:/opt/keycloak/data/import/quarkus-realm.json'
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin

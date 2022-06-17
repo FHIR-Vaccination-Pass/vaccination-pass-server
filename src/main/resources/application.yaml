@@ -8,3 +8,16 @@ fhirclient:
     password: 'supersecret'
   logging:
     enabled: 'false'
+
+quarkus:
+  oidc:
+    auth-server-url: 'https://localhost:8443/realms/quarkus'
+    client-id: 'backend-service'
+    credentials:
+      secret: 'secret'
+    tls:
+      verification: 'none'
+
+  keycloak:
+    policy-enforcer:
+      enable: true
