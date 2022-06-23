@@ -1,7 +1,7 @@
 fhirclient:
   rest:
     base:
-      url: 'http://localhost:9080/fhir-server/api/v4'
+      url: 'https://localhost:9443/fhir-server/api/v4'
   basicauth:
     enabled: 'true'
     username: 'fhiruser'
@@ -10,13 +10,16 @@ fhirclient:
     enabled: 'false'
 
 quarkus:
+  http:
+    port: '8080'
+    ssl-port: '8443'
+    insecure-requests: redirect
+
   oidc:
-    auth-server-url: 'https://localhost:8443/realms/quarkus'
+    auth-server-url: 'https://localhost:10443/realms/quarkus'
     client-id: 'backend-service'
     credentials:
       secret: 'secret'
-    tls:
-      verification: 'none'
 
   keycloak:
     policy-enforcer:

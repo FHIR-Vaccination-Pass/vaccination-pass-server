@@ -4,6 +4,29 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
+## Prerequisites
+- JDK >= 11
+- Docker & Docker-Compose
+- [mkcert](https://github.com/FiloSottile/mkcert)
+
+## Getting Started
+Run the following (on all operating systems):
+```shell script
+mkcert -install
+```
+
+### MacOS and Linux:
+Then run:
+```shell script
+./generateCerts.sh
+```
+
+### Windows:
+Then run:
+```shell script
+./generateCerts.ps1
+```
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
