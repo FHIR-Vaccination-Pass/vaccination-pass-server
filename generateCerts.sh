@@ -10,14 +10,6 @@ pushd ./config > /dev/null
 mkcert -pkcs12 -p12-file quarkus-keystore.p12 localhost 127.0.0.1 ::1
 popd > /dev/null
 
-pushd ./config-ibm-fhir/resources/security > /dev/null
-mkcert -pkcs12 -p12-file fhirKeyStore.p12 localhost 127.0.0.1 ::1
-popd > /dev/null
-
-pushd ./config-keycloak > /dev/null
-mkcert -pkcs12 -p12-file keycloak-keystore.p12 localhost 127.0.0.1 ::1
-popd > /dev/null
-
 cat > .env <<EOF
 QUARKUS_HTTP_SSL_CERTIFICATE_KEY_STORE_FILE=$PWD/config/quarkus-keystore.p12
 QUARKUS_HTTP_SSL_CERTIFICATE_KEY_STORE_PASSWORD=changeit

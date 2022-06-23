@@ -8,14 +8,6 @@ Push-Location ./config
 mkcert -pkcs12 -p12-file quarkus-keystore.p12 localhost 127.0.0.1 ::1
 Pop-Location
 
-Push-Location ./config-ibm-fhir/resources/security
-mkcert -pkcs12 -p12-file fhirKeyStore.p12 localhost 127.0.0.1 ::1
-Pop-Location
-
-Push-Location ./config-keycloak
-mkcert -pkcs12 -p12-file keycloak-keystore.p12 localhost 127.0.0.1 ::1
-Pop-Location
-
 $MY_PATH = $PWD -replace '\\', '/'
 
 Write-Output "
