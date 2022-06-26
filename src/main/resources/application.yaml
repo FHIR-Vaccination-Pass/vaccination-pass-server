@@ -15,6 +15,10 @@ quarkus:
     ssl-port: '8443'
     insecure-requests: redirect
 
+    cors:
+      ~: true
+      origins: 'https://localhost:3000'
+
   oidc:
     auth-server-url: 'https://localhost:10443/realms/quarkus'
     client-id: 'backend-service'
