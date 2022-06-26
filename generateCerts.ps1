@@ -20,6 +20,6 @@ QUARKUS_HTTP_SSL_CERTIFICATE_TRUST_STORE_PASSWORD=changeit
 Write-Output "
 Development certificates successfully generated! Please add the follwing to VM Options in IntelliJ:
 
--Djavax.net.ssl.trustStore=$PWD\rootCA.p12
+-Djavax.net.ssl.trustStore='$PWD\rootCA.p12'
 
 "
