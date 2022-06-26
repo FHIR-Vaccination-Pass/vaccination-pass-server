@@ -10,10 +10,11 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 - [mkcert](https://github.com/FiloSottile/mkcert)
 
 ## Getting Started
-Run the following (on all operating systems):
+Run the following as administrator (on all operating systems):
 ```shell script
 mkcert -install
 ```
+If an error occurs, make sure that your JDK's ```bin``` directory is in PATH.
 
 ### MacOS and Linux:
 Then run:
@@ -24,7 +25,7 @@ Then run:
 ### Windows:
 Then run:
 ```shell script
-./generateCerts.ps1
+.\generateCerts.ps1
 ```
 
 ## Running the application in dev mode
