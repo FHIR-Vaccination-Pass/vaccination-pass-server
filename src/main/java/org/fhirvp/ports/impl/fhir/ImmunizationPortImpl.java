@@ -1,17 +1,17 @@
 package org.fhirvp.ports.impl.fhir;
 
-import com.ibm.fhir.model.resource.Patient;
+import com.ibm.fhir.model.resource.Immunization;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class PatientPortImpl extends FHIRResourcePortImpl<Patient> {
+public class ImmunizationPortImpl extends FHIRResourcePortImpl<Immunization> {
     @Inject
-    PatientPortImpl(FHIRClientProvider fhirClientProvider) {
-        resourceClass = Patient.class;
-        resourceName = "Patient";
-        resourcePath = "/patient";
+    ImmunizationPortImpl(FHIRClientProvider fhirClientProvider) {
+        resourceClass = Immunization.class;
+        resourceName = "Immunization";
+        resourcePath = "/immunization";
 
         postFailMsg = "POST " + resourcePath + " failed";
         getFailMsg = "GET " + resourcePath + " failed";
