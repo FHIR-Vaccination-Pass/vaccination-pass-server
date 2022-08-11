@@ -1,12 +1,13 @@
 package org.fhirvp.ports.impl.fhir;
 
 import com.ibm.fhir.model.resource.Patient;
+import org.fhirvp.ports.PatientPort;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class PatientPortImpl extends FHIRResourcePortImpl<Patient> {
+public class PatientPortImpl extends FHIRResourcePortImpl<Patient> implements PatientPort {
     @Inject
     PatientPortImpl(FHIRClientProvider fhirClientProvider) {
         resourceClass = Patient.class;

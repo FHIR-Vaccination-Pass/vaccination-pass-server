@@ -1,11 +1,11 @@
 package org.fhirvp.usecase.impl;
 
-import com.ibm.fhir.model.resource.Patient;
+import com.ibm.fhir.model.resource.*;
 import com.ibm.fhir.model.type.*;
 import com.ibm.fhir.model.type.code.AddressUse;
 import com.ibm.fhir.model.type.code.AdministrativeGender;
 import com.ibm.fhir.model.type.code.NameUse;
-import org.fhirvp.ports.FHIRResourcePort;
+import org.fhirvp.ports.*;
 import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
 import org.fhirvp.usecase.BootstrapUseCase;
 
@@ -19,7 +19,19 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
     static final String PROFILE_BASE_URL = "https://fhir-vaccination-pass.github.io/fhir-implementation-guide/StructureDefinition/";
 
     @Inject
-    FHIRResourcePort<Patient> patientPort;
+    BasicPort basicPort;
+    @Inject
+    ImmunizationPort immunizationPort;
+    @Inject
+    ImmunizationRecommendationPort immunizationRecommendationPort;
+    @Inject
+    MedicationPort medicationPort;
+    @Inject
+    OrganizationPort organizationPort;
+    @Inject
+    PatientPort patientPort;
+    @Inject
+    PractitionerPort practitionerPort;
 
     @Override
     public BootstrapResult bootstrap() throws FHIRServerException {
