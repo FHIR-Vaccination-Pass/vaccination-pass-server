@@ -1,20 +1,18 @@
-package org.fhirvp.ports.impl.fhir;
+package org.fhirvp.ports.impl.fhir.context;
 
 import com.ibm.fhir.client.FHIRClient;
 import com.ibm.fhir.client.FHIRClientFactory;
-import lombok.Getter;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import java.util.Properties;
 
-@ApplicationScoped
-public class FHIRClientProvider {
-    @Getter
-    FHIRClient fhirClient;
-
+public class FHIRClientProducer {
     @Inject
-    FHIRClientProvider(FHIRClientConfig config) throws Exception {
+    FHIRClientConfig config;
+
+    @Produces
+    public FHIRClient getInstance() throws Exception {
         var clientProperties = new Properties();
         clientProperties.setProperty(FHIRClient.PROPNAME_BASE_URL, config.rest().base().url());
         clientProperties.setProperty(FHIRClient.PROPNAME_BASIC_AUTH_ENABLED, config.basicauth().enabled());
@@ -22,6 +20,6 @@ public class FHIRClientProvider {
         clientProperties.setProperty(FHIRClient.PROPNAME_CLIENT_PASSWORD, config.basicauth().password());
         clientProperties.setProperty(FHIRClient.PROPNAME_LOGGING_ENABLED, config.logging().enabled());
 
-        this.fhirClient = FHIRClientFactory.getClient(clientProperties);
+        return FHIRClientFactory.getClient(clientProperties);
     }
 }

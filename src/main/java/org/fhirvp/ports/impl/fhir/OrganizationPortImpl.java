@@ -4,12 +4,10 @@ import com.ibm.fhir.model.resource.Organization;
 import org.fhirvp.ports.OrganizationPort;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 @ApplicationScoped
 public class OrganizationPortImpl extends FHIRResourcePortImpl<Organization> implements OrganizationPort {
-    @Inject
-    OrganizationPortImpl(FHIRClientProvider fhirClientProvider) {
+    OrganizationPortImpl() {
         resourceClass = Organization.class;
         resourceName = "Organization";
         resourcePath = "/organization";
@@ -20,7 +18,5 @@ public class OrganizationPortImpl extends FHIRResourcePortImpl<Organization> imp
         deleteFailmsg = "DELETE " + resourcePath + " failed";
         noLocationmsg = resourceName + " has no location";
         castFailMsg = resourceName + " is not a " + resourceName;
-
-        fhirClient = fhirClientProvider.getFhirClient();
     }
 }

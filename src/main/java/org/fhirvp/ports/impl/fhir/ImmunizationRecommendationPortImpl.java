@@ -4,12 +4,10 @@ import com.ibm.fhir.model.resource.ImmunizationRecommendation;
 import org.fhirvp.ports.ImmunizationRecommendationPort;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 @ApplicationScoped
 public class ImmunizationRecommendationPortImpl extends FHIRResourcePortImpl<ImmunizationRecommendation> implements ImmunizationRecommendationPort {
-    @Inject
-    ImmunizationRecommendationPortImpl(FHIRClientProvider fhirClientProvider) {
+    ImmunizationRecommendationPortImpl() {
         resourceClass = ImmunizationRecommendation.class;
         resourceName = "ImmunizationRecommendation";
         resourcePath = "/immunizationrecommendation";
@@ -20,7 +18,5 @@ public class ImmunizationRecommendationPortImpl extends FHIRResourcePortImpl<Imm
         deleteFailmsg = "DELETE " + resourcePath + " failed";
         noLocationmsg = resourceName + " has no location";
         castFailMsg = resourceName + " is not a " + resourceName;
-
-        fhirClient = fhirClientProvider.getFhirClient();
     }
 }

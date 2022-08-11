@@ -8,8 +8,7 @@ import javax.inject.Inject;
 
 @ApplicationScoped
 public class BasicPortImpl extends FHIRResourcePortImpl<Basic> implements BasicPort {
-    @Inject
-    BasicPortImpl(FHIRClientProvider fhirClientProvider) {
+    BasicPortImpl() {
         resourceClass = Basic.class;
         resourceName = "Basic";
         resourcePath = "/basic";
@@ -20,7 +19,5 @@ public class BasicPortImpl extends FHIRResourcePortImpl<Basic> implements BasicP
         deleteFailmsg = "DELETE " + resourcePath + " failed";
         noLocationmsg = resourceName + " has no location";
         castFailMsg = resourceName + " is not a " + resourceName;
-
-        fhirClient = fhirClientProvider.getFhirClient();
     }
 }

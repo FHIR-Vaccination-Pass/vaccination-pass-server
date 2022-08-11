@@ -4,12 +4,10 @@ import com.ibm.fhir.model.resource.Practitioner;
 import org.fhirvp.ports.PractitionerPort;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 @ApplicationScoped
 public class PractitionerPortImpl extends FHIRResourcePortImpl<Practitioner> implements PractitionerPort {
-    @Inject
-    PractitionerPortImpl(FHIRClientProvider fhirClientProvider) {
+    PractitionerPortImpl() {
         resourceClass = Practitioner.class;
         resourceName = "Practitioner";
         resourcePath = "/practitioner";
@@ -20,7 +18,5 @@ public class PractitionerPortImpl extends FHIRResourcePortImpl<Practitioner> imp
         deleteFailmsg = "DELETE " + resourcePath + " failed";
         noLocationmsg = resourceName + " has no location";
         castFailMsg = resourceName + " is not a " + resourceName;
-
-        fhirClient = fhirClientProvider.getFhirClient();
     }
 }

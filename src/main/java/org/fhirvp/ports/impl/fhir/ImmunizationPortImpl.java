@@ -4,12 +4,10 @@ import com.ibm.fhir.model.resource.Immunization;
 import org.fhirvp.ports.ImmunizationPort;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 @ApplicationScoped
 public class ImmunizationPortImpl extends FHIRResourcePortImpl<Immunization> implements ImmunizationPort {
-    @Inject
-    ImmunizationPortImpl(FHIRClientProvider fhirClientProvider) {
+    ImmunizationPortImpl() {
         resourceClass = Immunization.class;
         resourceName = "Immunization";
         resourcePath = "/immunization";
@@ -20,7 +18,5 @@ public class ImmunizationPortImpl extends FHIRResourcePortImpl<Immunization> imp
         deleteFailmsg = "DELETE " + resourcePath + " failed";
         noLocationmsg = resourceName + " has no location";
         castFailMsg = resourceName + " is not a " + resourceName;
-
-        fhirClient = fhirClientProvider.getFhirClient();
     }
 }

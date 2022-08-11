@@ -4,12 +4,10 @@ import com.ibm.fhir.model.resource.Medication;
 import org.fhirvp.ports.MedicationPort;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 @ApplicationScoped
 public class MedicationPortImpl extends FHIRResourcePortImpl<Medication> implements MedicationPort {
-    @Inject
-    MedicationPortImpl(FHIRClientProvider fhirClientProvider) {
+    MedicationPortImpl() {
         resourceClass = Medication.class;
         resourceName = "Medication";
         resourcePath = "/medication";
@@ -20,7 +18,5 @@ public class MedicationPortImpl extends FHIRResourcePortImpl<Medication> impleme
         deleteFailmsg = "DELETE " + resourcePath + " failed";
         noLocationmsg = resourceName + " has no location";
         castFailMsg = resourceName + " is not a " + resourceName;
-
-        fhirClient = fhirClientProvider.getFhirClient();
     }
 }

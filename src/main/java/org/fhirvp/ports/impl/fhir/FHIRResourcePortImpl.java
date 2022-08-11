@@ -6,6 +6,8 @@ import io.vavr.control.Try;
 import org.fhirvp.ports.FHIRResourcePort;
 import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
 
+import javax.inject.Inject;
+
 import static org.fhirvp.ports.impl.fhir.FHIRClientUtils.*;
 import static org.fhirvp.ports.impl.fhir.FHIRClientUtils.wrapDelete;
 
@@ -20,6 +22,7 @@ public abstract class FHIRResourcePortImpl<T extends Resource> implements FHIRRe
     String noLocationmsg;
     String castFailMsg;
 
+    @Inject
     FHIRClient fhirClient;
 
     @Override

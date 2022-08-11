@@ -1,4 +1,4 @@
-package org.fhirvp.ports.impl.fhir;
+package org.fhirvp.ports.impl.fhir.context;
 
 import io.smallrye.config.ConfigMapping;
 
