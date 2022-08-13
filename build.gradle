@@ -20,6 +20,10 @@ dependencies {
 
     def ibmFhirVersion = '4.11.1'
     implementation "com.ibm.fhir:fhir-client:${ibmFhirVersion}"
+    implementation "com.ibm.fhir:fhir-model:${ibmFhirVersion}"
+    implementation "com.ibm.fhir:fhir-path:${ibmFhirVersion}"
+
+    implementation 'io.vavr:vavr:0.10.4'
 }
 
 group 'org.fhirvp'
