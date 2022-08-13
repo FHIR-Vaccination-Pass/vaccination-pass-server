@@ -234,6 +234,9 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
                                         .build())
                                 .build())
                         .build())
+                .subject(Reference.builder()
+                        .reference("Patient/" + patient.getId())
+                        .build())
                 .extension(Extension.builder()
                         .url(PROFILE_BASE_URL + "vp-vacation-plan-extension")
                         .extension(Extension.builder()
@@ -257,18 +260,10 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
                                                 .build())
                                         .build())
                                 .build())
-                        .extension(
-                                Extension.builder()
-                                        .url("departureDate")
-                                        .value(departureDate)
-                                        .build(),
-                                Extension.builder()
-                                        .url("patient")
-                                        .value(Reference.builder()
-                                                .reference("Patient/" + patient.getId())
-                                                .build())
-                                        .build()
-                        )
+                        .extension(Extension.builder()
+                                .url("departureDate")
+                                .value(departureDate)
+                                .build())
                         .build())
                 .build());
     }
@@ -398,6 +393,9 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
                                         .build())
                                 .build())
                         .build())
+                .subject(Reference.builder()
+                        .reference("Patient/" + patient.getId())
+                        .build())
                 .extension(Extension.builder()
                         .url(PROFILE_BASE_URL + "vp-active-vaccination-scheme-extension")
                         .extension(
@@ -405,12 +403,6 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
                                         .url("vaccinationScheme")
                                         .value(Reference.builder()
                                                 .reference("Basic/" + vaccinationScheme.getId())
-                                                .build())
-                                        .build(),
-                                Extension.builder()
-                                        .url("patient")
-                                        .value(Reference.builder()
-                                                .reference("Patient/" + patient.getId())
                                                 .build())
                                         .build(),
                                 Extension.builder()

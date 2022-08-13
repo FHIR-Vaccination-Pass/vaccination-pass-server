@@ -8,6 +8,7 @@ import io.vavr.control.Try;
 import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.sql.Ref;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -77,6 +78,9 @@ public class ComirnatyCreator extends MedicationCreator {
                                         .build())
                                 .build())
                         .build())
+                .subject(Reference.builder()
+                        .reference("Medication/" + medication.getId())
+                        .build())
                 .extension(Extension.builder()
                         .url(PROFILE_BASE_URL + "vp-vaccination-scheme-extension")
                         .extension(
@@ -102,12 +106,6 @@ public class ComirnatyCreator extends MedicationCreator {
                                                 .value(Decimal.of(12))
                                                 .unit("yr")
                                                 .build())
-                                        .build(),
-                                Extension.builder()
-                                        .url("vaccine")
-                                        .value(Reference.builder()
-                                                .reference("Medication/" + medication.getId())
-                                                .build())
                                         .build()
                         )
                         .build())
@@ -124,6 +122,9 @@ public class ComirnatyCreator extends MedicationCreator {
                                                         .value("VaccinationDose")
                                                         .build())
                                                 .build())
+                                        .build())
+                                .subject(Reference.builder()
+                                        .reference("Basic/" + vaccinationSchemeStandard.getId())
                                         .build())
                                 .extension(Extension.builder()
                                         .url(PROFILE_BASE_URL + "vp-vaccination-dose-base-extension")
@@ -143,12 +144,6 @@ public class ComirnatyCreator extends MedicationCreator {
                                                 Extension.builder()
                                                         .url("notes")
                                                         .value(Markdown.of("This is a note."))
-                                                        .build(),
-                                                Extension.builder()
-                                                        .url("vaccinationScheme")
-                                                        .value(Reference.builder()
-                                                                .reference("Basic/" + vaccinationSchemeStandard.getId())
-                                                                .build())
                                                         .build()
                                         )
                                         .build())
@@ -173,6 +168,9 @@ public class ComirnatyCreator extends MedicationCreator {
                                                         .build())
                                                 .build())
                                         .build())
+                                .subject(Reference.builder()
+                                        .reference("Basic/" + vaccinationSchemeStandard.getId())
+                                        .build())
                                 .extension(Extension.builder()
                                         .url(PROFILE_BASE_URL + "vp-vaccination-dose-base-extension")
                                         .extension(
@@ -191,12 +189,6 @@ public class ComirnatyCreator extends MedicationCreator {
                                                 Extension.builder()
                                                         .url("notes")
                                                         .value(Markdown.of("This is a note."))
-                                                        .build(),
-                                                Extension.builder()
-                                                        .url("vaccinationScheme")
-                                                        .value(Reference.builder()
-                                                                .reference("Basic/" + vaccinationSchemeStandard.getId())
-                                                                .build())
                                                         .build()
                                         )
                                         .build())
@@ -237,6 +229,9 @@ public class ComirnatyCreator extends MedicationCreator {
                                                         .build())
                                                 .build())
                                         .build())
+                                .subject(Reference.builder()
+                                        .reference("Basic/" + vaccinationSchemeStandard.getId())
+                                        .build())
                                 .extension(Extension.builder()
                                         .url(PROFILE_BASE_URL + "vp-vaccination-dose-base-extension")
                                         .extension(
@@ -255,12 +250,6 @@ public class ComirnatyCreator extends MedicationCreator {
                                                 Extension.builder()
                                                         .url("notes")
                                                         .value(Markdown.of("This is a note."))
-                                                        .build(),
-                                                Extension.builder()
-                                                        .url("vaccinationScheme")
-                                                        .value(Reference.builder()
-                                                                .reference("Basic/" + vaccinationSchemeStandard.getId())
-                                                                .build())
                                                         .build()
                                         )
                                         .build())
