@@ -4,10 +4,8 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@ToString
 public class FHIRNotificationEvent {
 
     @NotNull public String lastUpdated;
