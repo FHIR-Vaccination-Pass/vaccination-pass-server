@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
     implementation 'io.quarkus:quarkus-config-yaml'
     implementation 'io.quarkus:quarkus-oidc'
     implementation 'io.quarkus:quarkus-keycloak-authorization'
@@ -23,6 +24,8 @@ dependencies {
     implementation "com.ibm.fhir:fhir-client:${ibmFhirVersion}"
     implementation "com.ibm.fhir:fhir-model:${ibmFhirVersion}"
     implementation "com.ibm.fhir:fhir-path:${ibmFhirVersion}"
+
+    implementation 'javax.validation:validation-api:2.0.1.Final'
 
     implementation 'io.vavr:vavr:0.10.4'
 }

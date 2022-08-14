@@ -1,8 +1,10 @@
 package org.fhirvp.api.notification;
 
+import org.fhirvp.notification.FHIRNotificationEvent;
 import org.fhirvp.notification.NotificationHandler;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,9 +18,9 @@ public class FHIRNotificationResource {
     NotificationHandler notificationHandler;
 
     @POST
-    public Response createNotification(String notificationJson) {
-        notificationHandler.handleNotification(notificationJson);
-        return Response.ok(notificationJson).build();
+    public Response createNotification(@Valid FHIRNotificationEvent notification) {
+        notificationHandler.handleNotification(notification);
+        return Response.ok().build();
     }
 
 }

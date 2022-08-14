@@ -20,12 +20,8 @@ public class FHIRNotificationClient {
     @Inject
     FHIRNotificationConfig config;
 
-    public void onStart(@Observes StartupEvent event) {
-        try {
-            fhirNotificationClientSession = ContainerProvider.getWebSocketContainer().connectToServer(FHIRNotificationClientEndpoint.class, URI.create(config.websocket().url()));
-        } catch (DeploymentException | IOException e) {
-            e.printStackTrace();
-        }
+    public void onStart(@Observes StartupEvent event) throws DeploymentException, IOException {
+        fhirNotificationClientSession = ContainerProvider.getWebSocketContainer().connectToServer(FHIRNotificationClientEndpoint.class, URI.create(config.websocket().url()));
     }
 
 }
