@@ -67,7 +67,7 @@ public class ComirnatyCreator extends MedicationCreator {
                                 .build()
                 )
                 .build());
-        var vaccinationSchemeStandard = basicPort.createAndRead(Basic.builder()
+        var vaccinationSchemeStandard = vaccinationSchemePort.createAndRead(Basic.builder()
                 .meta(Meta.builder()
                         .profile(Canonical.of(PROFILE_BASE_URL + "vp-vaccination-scheme"))
                         .build())
@@ -272,7 +272,7 @@ public class ComirnatyCreator extends MedicationCreator {
                                         .build())
                                 .build()
                 ),
-                basicPort::tryCreateAndRead
+                vaccinationDosePort::tryCreateAndRead
         ).get().asJava();
 
         return MedicationCreateResult.builder()
