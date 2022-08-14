@@ -9,6 +9,10 @@ fhirclient:
   logging:
     enabled: 'false'
 
+fhir-notification:
+  websocket:
+    url: 'wss://localhost:9443/fhir-server/api/v4/notification'
+
 quarkus:
   http:
     port: '8080'

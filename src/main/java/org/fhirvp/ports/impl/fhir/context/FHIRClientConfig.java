@@ -3,7 +3,7 @@ package org.fhirvp.ports.impl.fhir.context;
 import io.smallrye.config.ConfigMapping;
 
 @ConfigMapping(prefix = "fhirclient")
-interface FHIRClientConfig {
+public interface FHIRClientConfig {
     interface Rest {
         interface Base {
             String url();
