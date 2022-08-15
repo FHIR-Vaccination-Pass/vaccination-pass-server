@@ -3,8 +3,9 @@ package org.fhirvp.websocket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.logging.Log;
-import org.fhirvp.notification.FHIRNotificationEvent;
-import org.fhirvp.notification.NotificationHandler;
+import org.fhirvp.model.FHIRNotificationEvent;
+import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
+import org.fhirvp.usecase.NotificationUseCase;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.websocket.ClientEndpoint;
@@ -21,13 +22,13 @@ public class FHIRNotificationClientEndpoint {
     }
 
     @OnMessage
-    void handleIncomingFHIRNotification(String notificationJson) throws JsonProcessingException {
+    void handleIncomingFHIRNotification(String notificationJson) throws JsonProcessingException, FHIRServerException {
         ObjectMapper objectMapper = new ObjectMapper();
         FHIRNotificationEvent notification = objectMapper.readValue(notificationJson, FHIRNotificationEvent.class);
         Log.info("Received FHIR Notification: " + notification);
 
-        // Workaround to get NotificationHandler since @Inject doesn't work with @ClientEndpoint
-        NotificationHandler notificationHandler = CDI.current().select(NotificationHandler.class).get();
-        notificationHandler.handleNotification(notification);
+        // Workaround to get NotificationUseCase since @Inject doesn't work with @ClientEndpoint
+        NotificationUseCase notificationUseCase = CDI.current().select(NotificationUseCase.class).get();
+        notificationUseCase.handleNotification(notification);
     }
 }

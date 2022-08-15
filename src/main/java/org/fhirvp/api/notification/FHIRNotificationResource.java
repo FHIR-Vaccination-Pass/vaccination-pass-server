@@ -1,7 +1,8 @@
 package org.fhirvp.api.notification;
 
-import org.fhirvp.notification.FHIRNotificationEvent;
-import org.fhirvp.notification.NotificationHandler;
+import org.fhirvp.model.FHIRNotificationEvent;
+import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
+import org.fhirvp.usecase.NotificationUseCase;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -15,11 +16,11 @@ import javax.ws.rs.core.Response;
 public class FHIRNotificationResource {
 
     @Inject
-    NotificationHandler notificationHandler;
+    NotificationUseCase notificationUseCase;
 
     @POST
-    public Response createNotification(@Valid FHIRNotificationEvent notification) {
-        notificationHandler.handleNotification(notification);
+    public Response createNotification(@Valid FHIRNotificationEvent notification) throws FHIRServerException {
+        notificationUseCase.handleNotification(notification);
         return Response.ok().build();
     }
 
