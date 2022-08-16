@@ -9,8 +9,8 @@ jobs:
   ci:
     runs-on: ubuntu-22.04
     steps:
-      - uses: ./.github/workflows/test.yaml
-      - uses: ./.github/workflows/docker.yaml
+      - uses: ./.github/workflows/test
+      - uses: ./.github/workflows/docker
         with:
           image-group: fhir-vaccination-pass
           image-name: vaccination-pass-server
