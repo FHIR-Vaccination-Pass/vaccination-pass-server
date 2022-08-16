@@ -1,0 +1,17 @@
+name: CI [main]
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: ./.github/workflows/test.yaml
+      - uses: ./.github/workflows/docker.yaml
+        with:
+          image-group: fhir-vaccination-pass
+          image-name: vaccination-pass-server
+          image-tag: latest
