@@ -50,4 +50,4 @@ jobs:
           QUARKUS_DOCKER_BUILDX_PLATFORM: linux/amd64,linux/arm64
         run: |
           docker pull ghcr.io/${{ inputs.image-group }}/${{ inputs.image-name }}:${{ inputs.image-tag }} || true
-          ./gradlew build
+          ./gradlew --info build
