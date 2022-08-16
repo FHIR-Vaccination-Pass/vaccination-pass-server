@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - develop
+      # TODO: remove this before mergin
+      - feat/21/docker-image
 
 jobs:
   test:
