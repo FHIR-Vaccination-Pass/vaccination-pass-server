@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/workflows/test
-      - uses: ./.github/workflows/docker
+      - uses: ./.github/workflows/test.yml
+      - uses: ./.github/workflows/docker.yml
         with:
           image-group: fhir-vaccination-pass
           image-name: vaccination-pass-server
