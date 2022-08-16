@@ -7,12 +7,9 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/test.yml
-      - uses: ./.github/workflows/docker.yml
-        with:
-          image-group: fhir-vaccination-pass
-          image-name: vaccination-pass-server
-          image-tag: latest
+    - uses: ./.github/workflows/test.yml
+    - uses: ./.github/workflows/docker.yml
+      with:
+        image-group: fhir-vaccination-pass
+        image-name: vaccination-pass-server
+        image-tag: latest
