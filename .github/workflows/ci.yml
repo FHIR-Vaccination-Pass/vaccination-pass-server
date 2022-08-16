@@ -2,7 +2,6 @@ name: CI
 
 on:
   push:
-  pull_request:
 
 env:
   IMAGE: ghcr.io/fhir-vaccination-pass/vaccination-pass-server
