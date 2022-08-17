@@ -13,6 +13,10 @@ fhir-notification:
   websocket:
     url: 'wss://localhost:9443/fhir-server/api/v4/notification'
 
+lifecycle:
+  on-startup:
+    bootstrap: false
+
 quarkus:
   http:
     port: '8080'
