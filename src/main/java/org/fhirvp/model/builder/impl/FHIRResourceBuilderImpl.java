@@ -1,15 +1,13 @@
-package org.fhirvp.usecase.impl.builder;
+package org.fhirvp.model.builder.impl;
 
 import com.ibm.fhir.model.resource.Basic;
 import com.ibm.fhir.model.resource.ImmunizationRecommendation;
 import com.ibm.fhir.model.type.*;
 import org.fhirvp.Constants;
 import org.fhirvp.model.ForecastStatus;
-import org.fhirvp.ports.impl.fhir.context.FHIRClientConfig;
-import org.fhirvp.usecase.FHIRResourceBuilderUseCase;
+import org.fhirvp.model.builder.FHIRResourceBuilder;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.lang.String;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -18,10 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCase {
-
-    @Inject
-    FHIRClientConfig fhirClientConfig;
+public class FHIRResourceBuilderImpl implements FHIRResourceBuilder {
 
     public Basic buildActiveVaccinationScheme(String patientId, String vaccinationSchemeId, String changeReason) {
         return Basic.builder()
@@ -36,7 +31,7 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
                                 .build())
                         .build())
                 .subject(Reference.builder()
-                        .reference(fhirClientConfig.rest().base().url() + "/Patient/" + patientId)
+                        .reference("Patient/" + patientId)
                         .build())
                 .extension(Extension.builder()
                         .url(Constants.PROFILE_BASE_URL + "vp-active-vaccination-scheme-extension")
@@ -44,7 +39,7 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
                                 Extension.builder()
                                         .url("vaccinationScheme")
                                         .value(Reference.builder()
-                                                .reference(fhirClientConfig.rest().base().url() + "/Basic/" + vaccinationSchemeId)
+                                                .reference("Basic/" + vaccinationSchemeId)
                                                 .build())
                                         .build(),
                                 Extension.builder()
@@ -58,11 +53,20 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
 
     public ImmunizationRecommendation buildImmunizationRecommendation
             (
-                    String patientId, String vaccineCode, String targetDiseaseCode, ForecastStatus forecastStatus,
-                    Optional<LocalDate> dateToGive, Optional<LocalDate> earliestDateToGive, Optional<LocalDate> latestDateToGive,
-                    List<String> supportingImmunizationIds, boolean isDeactivated, Optional<String> fulfillingImmunizationId,
-                    String supportingPopulationRecommendationId, String recommendedVaccinationDoseId
-            ) {
+                    String patientId,
+                    String vaccineCode,
+                    String targetDiseaseCode,
+                    ForecastStatus forecastStatus,
+                    Optional<LocalDate> dateToGive,
+                    Optional<LocalDate> earliestDateToGive,
+                    Optional<LocalDate> latestDateToGive,
+                    List<String> supportingImmunizationIds,
+                    boolean isDeactivated,
+                    Optional<String> fulfillingImmunizationId,
+                    String supportingPopulationRecommendationId,
+                    String recommendedVaccinationDoseId
+            )
+    {
         LocalDate now = LocalDate.now();
 
         List<ImmunizationRecommendation.Recommendation.DateCriterion> dateCriteria = new LinkedList<>();
@@ -88,20 +92,20 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
             extensions.add(Extension.builder()
                     .url(Constants.PROFILE_BASE_URL + "vp-fulfilling-immunization")
                     .value(Reference.builder()
-                            .reference(fhirClientConfig.rest().base().url() + "/Immunization/" + fulfillingImmunizationId.get())
+                            .reference("Immunization/" + fulfillingImmunizationId.get())
                             .build())
                     .build());
         }
         extensions.add(Extension.builder()
                 .url(Constants.PROFILE_BASE_URL + "vp-supporting-population-recommendation")
                 .value(Reference.builder()
-                        .reference(fhirClientConfig.rest().base().url() + "/Basic/" + supportingPopulationRecommendationId)
+                        .reference("Basic/" + supportingPopulationRecommendationId)
                         .build())
                 .build());
         extensions.add(Extension.builder()
                 .url(Constants.PROFILE_BASE_URL + "vp-recommended-vaccination-dose")
                 .value(Reference.builder()
-                        .reference(fhirClientConfig.rest().base().url() + "/Basic/" + recommendedVaccinationDoseId)
+                        .reference("Basic/" + recommendedVaccinationDoseId)
                         .build())
                 .build());
 
@@ -111,7 +115,7 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
                         .profile(Canonical.of(Constants.PROFILE_BASE_URL + "vp-immunization-recommendation"))
                         .build())
                 .patient(Reference.builder()
-                        .reference(fhirClientConfig.rest().base().url() + "/Patient/" + patientId)
+                        .reference("Patient/" + patientId)
                         .build())
                 .date(DateTime.of(LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth())))
                 .recommendation(ImmunizationRecommendation.Recommendation.builder()
@@ -170,7 +174,7 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
 
     private Reference buildSupportingImmunization(String id) {
         return Reference.builder()
-                .reference(fhirClientConfig.rest().base().url() + "/Immunization/")
+                .reference("Immunization/" + id)
                 .build();
     }
 
