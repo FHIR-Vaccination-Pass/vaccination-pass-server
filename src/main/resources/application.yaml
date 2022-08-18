@@ -2,6 +2,10 @@ fhirclient:
   logging:
     enabled: 'false'
 
+lifecycle:
+  on-startup:
+    bootstrap: false
+
 quarkus:
   http:
     port: '8080'
