@@ -1,4 +1,4 @@
-package org.fhirvp.usecase.impl;
+package org.fhirvp.usecase.impl.notification;
 
 import com.ibm.fhir.model.resource.Bundle;
 import com.ibm.fhir.model.resource.Patient;
@@ -7,12 +7,13 @@ import org.fhirvp.model.FHIRNotificationEvent;
 import org.fhirvp.ports.ActiveVaccinationSchemePort;
 import org.fhirvp.ports.PatientPort;
 import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
+import org.fhirvp.usecase.OnPatientNotificationUseCase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class PatientNotification {
+public class OnPatientNotificationUseCaseImpl implements OnPatientNotificationUseCase {
 
     @Inject
     PatientPort patientPort;

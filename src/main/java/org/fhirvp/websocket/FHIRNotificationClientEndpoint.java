@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.logging.Log;
 import org.fhirvp.model.FHIRNotificationEvent;
 import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
-import org.fhirvp.usecase.NotificationUseCase;
+import org.fhirvp.usecase.RouteNotificationUseCase;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.websocket.ClientEndpoint;
@@ -28,7 +28,7 @@ public class FHIRNotificationClientEndpoint {
         Log.info("Received FHIR Notification: " + notification);
 
         // Workaround to get NotificationUseCase since @Inject doesn't work with @ClientEndpoint
-        NotificationUseCase notificationUseCase = CDI.current().select(NotificationUseCase.class).get();
-        notificationUseCase.handleNotification(notification);
+        RouteNotificationUseCase routeNotificationUseCase = CDI.current().select(RouteNotificationUseCase.class).get();
+        routeNotificationUseCase.route(notification);
     }
 }
