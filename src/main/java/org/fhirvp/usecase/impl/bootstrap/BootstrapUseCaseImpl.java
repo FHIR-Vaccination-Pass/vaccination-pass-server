@@ -26,8 +26,6 @@ import static org.fhirvp.Constants.PROFILE_BASE_URL;
 @ApplicationScoped
 public class BootstrapUseCaseImpl implements BootstrapUseCase {
     @Inject
-    BasicPort basicPort;
-    @Inject
     ImmunizationPort immunizationPort;
     @Inject
     ImmunizationRecommendationPort immunizationRecommendationPort;
@@ -37,6 +35,14 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
     PatientPort patientPort;
     @Inject
     PractitionerPort practitionerPort;
+    @Inject
+    TargetDiseasePort targetDiseasePort;
+    @Inject
+    PopulationRecommendationPort populationRecommendationPort;
+    @Inject
+    VacationPlanPort vacationPlanPort;
+    @Inject
+    ActiveVaccinationSchemePort activeVaccinationSchemePort;
 
     @Inject
     ComirnatyCreator comirnatyCreator;
@@ -81,7 +87,7 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
                                 .build())
                         .build()
         );
-        return Try.traverse(targetDiseasesToCreate, basicPort::tryCreateAndRead).get().asJava();
+        return Try.traverse(targetDiseasesToCreate, targetDiseasePort::tryCreateAndRead).get().asJava();
     }
 
     private List<Basic> createPopulationRecommendations() throws FHIRServerException {
@@ -128,7 +134,7 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
                                 .build())
                         .build()
         );
-        return Try.traverse(populationRecommendationsToCreate, basicPort::tryCreateAndRead).get().asJava();
+        return Try.traverse(populationRecommendationsToCreate, populationRecommendationPort::tryCreateAndRead).get().asJava();
     }
 
     private Organization createOrganization(String name) throws FHIRServerException {
@@ -223,7 +229,7 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
             Code stateCode,
             Date departureDate
     ) throws FHIRServerException {
-        return basicPort.createAndRead(Basic.builder()
+        return vacationPlanPort.createAndRead(Basic.builder()
                 .meta(Meta.builder()
                         .profile(Canonical.of(PROFILE_BASE_URL + "vp-vacation-plan"))
                         .build())
@@ -382,7 +388,7 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
     }
 
     private Basic createActiveVaccinationScheme(Patient patient, Basic vaccinationScheme) throws FHIRServerException {
-        return basicPort.createAndRead(Basic.builder()
+        return activeVaccinationSchemePort.createAndRead(Basic.builder()
                 .meta(Meta.builder()
                         .profile(Canonical.of(PROFILE_BASE_URL + "vp-active-vaccination-scheme"))
                         .build())

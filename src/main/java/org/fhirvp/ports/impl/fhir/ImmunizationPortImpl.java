@@ -11,12 +11,5 @@ public class ImmunizationPortImpl extends FHIRResourcePortImpl<Immunization> imp
         resourceClass = Immunization.class;
         resourceName = "Immunization";
         resourcePath = "/immunization";
-
-        postFailMsg = "POST " + resourcePath + " failed";
-        getFailMsg = "GET " + resourcePath + " failed";
-        putFailMsg = "PUT " + resourcePath + " failed";
-        deleteFailmsg = "DELETE " + resourcePath + " failed";
-        noLocationmsg = resourceName + " has no location";
-        castFailMsg = resourceName + " is not a " + resourceName;
     }
 }

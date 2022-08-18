@@ -11,12 +11,5 @@ public class PatientPortImpl extends FHIRResourcePortImpl<Patient> implements Pa
         resourceClass = Patient.class;
         resourceName = "Patient";
         resourcePath = "/patient";
-
-        postFailMsg = "POST " + resourcePath + " failed";
-        getFailMsg = "GET " + resourcePath + " failed";
-        putFailMsg = "PUT " + resourcePath + " failed";
-        deleteFailmsg = "DELETE " + resourcePath + " failed";
-        noLocationmsg = resourceName + " has no location";
-        castFailMsg = resourceName + " is not a " + resourceName;
     }
 }

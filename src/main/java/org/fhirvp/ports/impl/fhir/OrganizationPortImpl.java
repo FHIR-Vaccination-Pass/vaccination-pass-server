@@ -11,12 +11,5 @@ public class OrganizationPortImpl extends FHIRResourcePortImpl<Organization> imp
         resourceClass = Organization.class;
         resourceName = "Organization";
         resourcePath = "/organization";
-
-        postFailMsg = "POST " + resourcePath + " failed";
-        getFailMsg = "GET " + resourcePath + " failed";
-        putFailMsg = "PUT " + resourcePath + " failed";
-        deleteFailmsg = "DELETE " + resourcePath + " failed";
-        noLocationmsg = resourceName + " has no location";
-        castFailMsg = resourceName + " is not a " + resourceName;
     }
 }

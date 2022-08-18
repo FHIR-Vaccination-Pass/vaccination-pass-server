@@ -1,4 +1,4 @@
-package org.fhirvp.notification;
+package org.fhirvp.model;
 
 import lombok.*;
 
@@ -14,5 +14,9 @@ public class FHIRNotificationEvent {
     @NotNull public String resourceId;
     @NotNull public String datasourceId;
     @NotNull public String tenantId;
+
+    public String getResourceTypeString() {
+        return location.split("/")[0];
+    }
 
 }

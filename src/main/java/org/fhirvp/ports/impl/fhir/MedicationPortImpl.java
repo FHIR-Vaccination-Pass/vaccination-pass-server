@@ -11,12 +11,5 @@ public class MedicationPortImpl extends FHIRResourcePortImpl<Medication> impleme
         resourceClass = Medication.class;
         resourceName = "Medication";
         resourcePath = "/medication";
-
-        postFailMsg = "POST " + resourcePath + " failed";
-        getFailMsg = "GET " + resourcePath + " failed";
-        putFailMsg = "PUT " + resourcePath + " failed";
-        deleteFailmsg = "DELETE " + resourcePath + " failed";
-        noLocationmsg = resourceName + " has no location";
-        castFailMsg = resourceName + " is not a " + resourceName;
     }
 }

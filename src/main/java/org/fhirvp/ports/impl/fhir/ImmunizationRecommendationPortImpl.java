@@ -11,12 +11,5 @@ public class ImmunizationRecommendationPortImpl extends FHIRResourcePortImpl<Imm
         resourceClass = ImmunizationRecommendation.class;
         resourceName = "ImmunizationRecommendation";
         resourcePath = "/immunizationrecommendation";
-
-        postFailMsg = "POST " + resourcePath + " failed";
-        getFailMsg = "GET " + resourcePath + " failed";
-        putFailMsg = "PUT " + resourcePath + " failed";
-        deleteFailmsg = "DELETE " + resourcePath + " failed";
-        noLocationmsg = resourceName + " has no location";
-        castFailMsg = resourceName + " is not a " + resourceName;
     }
 }

@@ -1,6 +1,8 @@
 package org.fhirvp.ports.impl.fhir;
 
 import com.ibm.fhir.client.FHIRClient;
+import com.ibm.fhir.client.FHIRParameters;
+import com.ibm.fhir.model.resource.Bundle;
 import com.ibm.fhir.model.resource.Resource;
 import io.vavr.control.Try;
 import org.fhirvp.ports.FHIRResourcePort;
@@ -15,20 +17,14 @@ public abstract class FHIRResourcePortImpl<T extends Resource> implements FHIRRe
     Class<T> resourceClass;
     String resourceName;
     String resourcePath;
-    String postFailMsg;
-    String getFailMsg;
-    String putFailMsg;
-    String deleteFailmsg;
-    String noLocationmsg;
-    String castFailMsg;
 
     @Inject
     FHIRClient fhirClient;
 
     @Override
     public String create(T resource) throws FHIRServerException {
-        var response = wrapCreate(() -> fhirClient.create(resource), postFailMsg);
-        return rethrow(response::getLocation, noLocationmsg);
+        var response = wrapCreate(() -> fhirClient.create(resource), getPostFailMsg());
+        return rethrow(response::getLocation, getNoLocationMsg());
     }
 
     @Override
@@ -38,11 +34,11 @@ public abstract class FHIRResourcePortImpl<T extends Resource> implements FHIRRe
 
     @Override
     public T read(String id) throws FHIRServerException {
-        var response = wrapRead(() -> fhirClient.read(resourceName, id), getFailMsg);
+        var response = wrapRead(() -> fhirClient.read(resourceName, id), getGetFailMsg());
         // .getResource(Class<T> type) forces us to implement the abstract base class pattern here
         // because T.class is invalid due to Java's type erasure:
         // https://docs.oracle.com/javase/tutorial/java/generics/erasure.html
-        return rethrow(() -> response.getResource(resourceClass), castFailMsg);
+        return rethrow(() -> response.getResource(resourceClass), getCastFailMsg());
     }
 
     @Override
@@ -62,8 +58,19 @@ public abstract class FHIRResourcePortImpl<T extends Resource> implements FHIRRe
     }
 
     @Override
+    public Bundle search(FHIRParameters parameters) throws FHIRServerException {
+        var response = wrapRead(() -> fhirClient.search(resourceName, parameters), getGetFailMsg());
+        return rethrow(() -> response.getResource(Bundle.class), "FHIR Search didn't return a bundle.");
+    }
+
+    @Override
+    public Try<Bundle> trySearch(FHIRParameters parameters) {
+        return Try.of(() -> search(parameters));
+    }
+
+    @Override
     public void update(T resource) throws FHIRServerException {
-        var response = wrapCreate(() -> fhirClient.update(resource), putFailMsg);
+        wrapCreate(() -> fhirClient.update(resource), getPutFailMsg());
     }
 
     @Override
@@ -76,7 +83,7 @@ public abstract class FHIRResourcePortImpl<T extends Resource> implements FHIRRe
 
     @Override
     public void delete(String id) throws FHIRServerException {
-        var response = wrapDelete(() -> fhirClient.delete(resourceName, id), deleteFailmsg);
+        wrapDelete(() -> fhirClient.delete(resourceName, id), getDeleteFailMsg());
     }
 
     @Override
@@ -85,5 +92,29 @@ public abstract class FHIRResourcePortImpl<T extends Resource> implements FHIRRe
             delete(id);
             return null;
         });
+    }
+
+    private String getPostFailMsg() {
+        return "POST " + resourcePath + " failed";
+    }
+
+    public String getGetFailMsg() {
+        return "GET " + resourcePath + " failed";
+    }
+
+    public String getPutFailMsg() {
+        return "PUT " + resourcePath + " failed";
+    }
+
+    public String getDeleteFailMsg() {
+        return "DELETE " + resourcePath + " failed";
+    }
+
+    public String getNoLocationMsg() {
+        return resourceName + " has no location";
+    }
+
+    public String getCastFailMsg() {
+        return resourceName + " is not a " + resourceName;
     }
 }
