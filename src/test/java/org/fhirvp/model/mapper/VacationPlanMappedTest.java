@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.String;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 class VacationPlanMappedTest {
 
@@ -14,11 +15,11 @@ class VacationPlanMappedTest {
 
     @Test
     void test() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         VacationPlanMapped vacationPlanMapped = new VacationPlanMapped(generateVacationPlan());
 
         assert vacationPlanMapped.getPatientId().equals("123");
-        assert dateFormat.format(vacationPlanMapped.getDepartureDate().getTime()).equals("01.01.2000");
+        assert vacationPlanMapped.getDepartureDate().format(dateTimeFormatter).equals("01.01.2000");
         assert vacationPlanMapped.getLocationsMapped().get(0).getCountryCode().equals("DE");
         assert vacationPlanMapped.getLocationsMapped().get(0).getStateCode().get().equals("DE-BY");
     }

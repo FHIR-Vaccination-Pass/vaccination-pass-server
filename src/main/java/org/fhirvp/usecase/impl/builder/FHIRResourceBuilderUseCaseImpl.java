@@ -12,7 +12,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.lang.String;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -60,11 +59,11 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
     public ImmunizationRecommendation buildImmunizationRecommendation
             (
                     String patientId, String vaccineCode, String targetDiseaseCode, ForecastStatus forecastStatus,
-                    Optional<Calendar> dateToGive, Optional<Calendar> earliestDateToGive, Optional<Calendar> latestDateToGive,
+                    Optional<LocalDate> dateToGive, Optional<LocalDate> earliestDateToGive, Optional<LocalDate> latestDateToGive,
                     List<String> supportingImmunizationIds, boolean isDeactivated, Optional<String> fulfillingImmunizationId,
                     String supportingPopulationRecommendationId, String recommendedVaccinationDoseId
             ) {
-        Calendar now = Calendar.getInstance();
+        LocalDate now = LocalDate.now();
 
         List<ImmunizationRecommendation.Recommendation.DateCriterion> dateCriteria = new LinkedList<>();
         if (dateToGive.isPresent()) {
@@ -114,7 +113,7 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
                 .patient(Reference.builder()
                         .reference(fhirClientConfig.rest().base().url() + "/Patient/" + patientId)
                         .build())
-                .date(DateTime.of(LocalDate.of(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH))))
+                .date(DateTime.of(LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth())))
                 .recommendation(ImmunizationRecommendation.Recommendation.builder()
                         .vaccineCode(CodeableConcept.builder()
                                 .coding(Coding.builder()
@@ -153,7 +152,7 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
                 .build();
     }
 
-    private ImmunizationRecommendation.Recommendation.DateCriterion buildImmunizationRecommendationDateCriterion(String loincCode, Calendar date) {
+    private ImmunizationRecommendation.Recommendation.DateCriterion buildImmunizationRecommendationDateCriterion(String loincCode, LocalDate date) {
         return ImmunizationRecommendation.Recommendation.DateCriterion.builder()
                 .code(CodeableConcept.builder()
                         .coding(Coding.builder()
@@ -165,7 +164,7 @@ public class FHIRResourceBuilderUseCaseImpl implements FHIRResourceBuilderUseCas
                                         .build())
                                 .build())
                         .build())
-                .value(DateTime.of(LocalDate.of(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH))))
+                .value(DateTime.of(LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth())))
                 .build();
     }
 

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.String;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 
 class PatientMappedTest {
@@ -18,11 +19,11 @@ class PatientMappedTest {
 
     @Test
     void test() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         PatientMapped patientMapped = new PatientMapped(generatePatient());
 
         assert patientMapped.isActive();
-        assert dateFormat.format(patientMapped.getBirthDate().getTime()).equals("01.01.2000");
+        assert patientMapped.getBirthDate().format(dateTimeFormatter).equals("01.01.2000");
         assert !patientMapped.isDeceased();
         assert !patientMapped.isPregnant();
         assert patientMapped.getKeycloakUsername().equals("müller");

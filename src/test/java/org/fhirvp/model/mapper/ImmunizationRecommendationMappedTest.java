@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.String;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 class ImmunizationRecommendationMappedTest {
 
@@ -16,17 +17,17 @@ class ImmunizationRecommendationMappedTest {
 
     @Test
     void test() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         ImmunizationRecommendationMapped immunizationRecommendationMapped = new ImmunizationRecommendationMapped(generateImmunizationRecommendation());
 
         assert immunizationRecommendationMapped.getPatientId().equals("123");
-        assert dateFormat.format(immunizationRecommendationMapped.getCreatedDate().getTime()).equals("10.07.2022");
+        assert immunizationRecommendationMapped.getCreatedDate().format(dateTimeFormatter).equals("10.07.2022");
         assert immunizationRecommendationMapped.getVaccineCode().equals("vaccine-abc");
         assert immunizationRecommendationMapped.getTargetDiseaseCode().equals("disease-abc");
         assert immunizationRecommendationMapped.getForecastStatus().equals(ForecastStatus.COMPLETE);
         assert immunizationRecommendationMapped.getDateToGive().isEmpty();
-        assert dateFormat.format(immunizationRecommendationMapped.getEarliestDateToGive().get().getTime()).equals("14.07.2022");
-        assert dateFormat.format(immunizationRecommendationMapped.getLatestDateToGive().get().getTime()).equals("21.07.2022");
+        assert immunizationRecommendationMapped.getEarliestDateToGive().get().format(dateTimeFormatter).equals("14.07.2022");
+        assert immunizationRecommendationMapped.getLatestDateToGive().get().format(dateTimeFormatter).equals("21.07.2022");
         assert immunizationRecommendationMapped.getSupportingImmunizationIds().get(0).equals("456");
         assert !immunizationRecommendationMapped.isDeactivated();
         assert immunizationRecommendationMapped.getFulfillingImmunizationId().get().equals("789");

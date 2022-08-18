@@ -12,9 +12,9 @@ import io.vavr.control.Try;
 import org.fhirvp.context.FHIRPathEvaluatorProducer;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
-import java.util.Calendar;
 import java.util.Optional;
 
 public abstract class FHIRResourceMapped<T extends AbstractVisitable> {
@@ -73,13 +73,11 @@ public abstract class FHIRResourceMapped<T extends AbstractVisitable> {
         return Optional.of(convertAgeToDuration(quantity));
     }
 
-    protected static Calendar convertFullDateToCalendar(TemporalAccessor accessor) {
+    protected static LocalDate convertTemporalAccessorToLocalDate(TemporalAccessor accessor) {
         int day = accessor.get(ChronoField.DAY_OF_MONTH);
         int month = accessor.get(ChronoField.MONTH_OF_YEAR);
         int year = accessor.get(ChronoField.YEAR);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month-1, day);
-        return calendar;
+        return LocalDate.of(year, month, day);
     }
 
     protected static Duration convertAgeToDuration(Quantity quantity) {

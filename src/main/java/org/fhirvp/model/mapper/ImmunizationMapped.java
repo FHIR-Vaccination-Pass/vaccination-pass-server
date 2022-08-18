@@ -5,7 +5,7 @@ import com.ibm.fhir.model.type.Reference;
 import com.ibm.fhir.model.type.code.ImmunizationStatus;
 import org.fhirvp.Constants;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 public class ImmunizationMapped extends FHIRResourceMapped<Immunization> {
 
@@ -31,8 +31,8 @@ public class ImmunizationMapped extends FHIRResourceMapped<Immunization> {
         return referenceParts[referenceParts.length - 1];
     }
 
-    public Calendar getOccurrence() {
-        return convertFullDateToCalendar(_raw.getOccurrence().as(com.ibm.fhir.model.type.DateTime.class).getValue());
+    public LocalDate getOccurrence() {
+        return convertTemporalAccessorToLocalDate(_raw.getOccurrence().as(com.ibm.fhir.model.type.DateTime.class).getValue());
     }
 
     public String getAdministeredVaccinationDoseId() {

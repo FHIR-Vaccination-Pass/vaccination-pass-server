@@ -7,7 +7,7 @@ import io.vavr.control.Try;
 import org.fhirvp.Constants;
 import org.fhirvp.model.ForecastStatus;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,8 +27,8 @@ public class ImmunizationRecommendationMapped extends FHIRResourceMapped<Immuniz
         return referenceParts[referenceParts.length - 1];
     }
 
-    public Calendar getCreatedDate() {
-        return convertFullDateToCalendar(_raw.getDate().as(com.ibm.fhir.model.type.DateTime.class).getValue());
+    public LocalDate getCreatedDate() {
+        return convertTemporalAccessorToLocalDate(_raw.getDate().as(com.ibm.fhir.model.type.DateTime.class).getValue());
     }
 
     public String getVaccineCode() {
@@ -59,19 +59,19 @@ public class ImmunizationRecommendationMapped extends FHIRResourceMapped<Immuniz
         }
     }
 
-    public Optional<Calendar> getDateToGive() {
+    public Optional<LocalDate> getDateToGive() {
         return getDateCriterion(Constants.DATE_CRITERION_DATE);
     }
 
-    public Optional<Calendar> getEarliestDateToGive() {
+    public Optional<LocalDate> getEarliestDateToGive() {
         return getDateCriterion(Constants.DATE_CRITERION_EARLIEST);
     }
 
-    public Optional<Calendar> getLatestDateToGive() {
+    public Optional<LocalDate> getLatestDateToGive() {
         return getDateCriterion(Constants.DATE_CRITERION_LATEST);
     }
 
-    private Optional<Calendar> getDateCriterion(String loincCode) {
+    private Optional<LocalDate> getDateCriterion(String loincCode) {
         String fhirPath = "recommendation.dateCriterion.where(code.coding.where(system = 'http://loinc.org').code = '" + loincCode + "').value";
         Optional<FHIRPathNode> optionalNode = super.createOptionalOne(_raw, fhirPath);
         if (optionalNode.isEmpty()) {
@@ -79,7 +79,7 @@ public class ImmunizationRecommendationMapped extends FHIRResourceMapped<Immuniz
         }
         com.ibm.fhir.model.type.DateTime dateTime = optionalNode.get().asElementNode().element()
                 .as(com.ibm.fhir.model.type.DateTime.class);
-        return Optional.of(convertFullDateToCalendar(dateTime.getValue()));
+        return Optional.of(convertTemporalAccessorToLocalDate(dateTime.getValue()));
     }
 
     public List<String> getSupportingImmunizationIds() {

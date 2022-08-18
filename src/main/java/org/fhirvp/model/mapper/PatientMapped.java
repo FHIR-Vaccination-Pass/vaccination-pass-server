@@ -4,7 +4,7 @@ import com.ibm.fhir.model.resource.Patient;
 import com.ibm.fhir.model.type.Element;
 import org.fhirvp.Constants;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,8 +29,8 @@ public class PatientMapped extends FHIRResourceMapped<Patient> {
         return _raw.getActive().getValue();
     }
 
-    public Calendar getBirthDate() {
-        return convertFullDateToCalendar(_raw.getBirthDate().getValue());
+    public LocalDate getBirthDate() {
+        return convertTemporalAccessorToLocalDate(_raw.getBirthDate().getValue());
     }
 
     public boolean isDeceased() {

@@ -5,7 +5,7 @@ import com.ibm.fhir.model.type.Extension;
 import io.vavr.control.Try;
 import org.fhirvp.Constants;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,11 +42,11 @@ public class VacationPlanMapped extends FHIRResourceMapped<Basic> {
         return referenceParts[referenceParts.length - 1];
     }
 
-    public Calendar getDepartureDate() {
+    public LocalDate getDepartureDate() {
         String fhirPath = "extension.where(url = 'departureDate').value";
         com.ibm.fhir.model.type.Date date = super.createExactlyOne(vacationPlanExtension, fhirPath)
                 .as(com.ibm.fhir.model.type.Date.class);
-        return convertFullDateToCalendar(date.getValue());
+        return convertTemporalAccessorToLocalDate(date.getValue());
     }
 
     public List<LocationMapped> getLocationsMapped() {

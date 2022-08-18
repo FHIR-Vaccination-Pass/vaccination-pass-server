@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.lang.String;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 class ImmunizationMappedTest {
 
@@ -16,13 +18,13 @@ class ImmunizationMappedTest {
 
     @Test
     void test() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         ImmunizationMapped immunizationMapped = new ImmunizationMapped(generateImmunization());
 
         assert immunizationMapped.getStatus().equals(ImmunizationStatus.COMPLETED);
         assert immunizationMapped.getVaccineCode().equals("vaccine-abc");
         assert immunizationMapped.getPatientId().equals("123");
-        assert dateFormat.format(immunizationMapped.getOccurrence().getTime()).equals("10.07.2022");
+        assert immunizationMapped.getOccurrence().format(dateTimeFormatter).equals("10.07.2022");
         assert immunizationMapped.getAdministeredVaccinationDoseId().equals("789");
     }
 
