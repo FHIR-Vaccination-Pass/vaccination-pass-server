@@ -1,33 +1,12 @@
 fhirclient:
-  rest:
-    base:
-      url: 'https://localhost:9443/fhir-server/api/v4'
-  basicauth:
-    enabled: 'true'
-    username: 'fhiruser'
-    password: 'supersecret'
   logging:
     enabled: 'false'
-
-fhir-notification:
-  websocket:
-    url: 'wss://localhost:9443/fhir-server/api/v4/notification'
 
 quarkus:
   http:
     port: '8080'
     ssl-port: '8443'
     insecure-requests: redirect
-
-    cors:
-      ~: true
-      origins: 'https://localhost:3000'
-
-  oidc:
-    auth-server-url: 'https://localhost:10443/realms/quarkus'
-    client-id: 'backend-service'
-    credentials:
-      secret: 'secret'
 
   keycloak:
     policy-enforcer:
