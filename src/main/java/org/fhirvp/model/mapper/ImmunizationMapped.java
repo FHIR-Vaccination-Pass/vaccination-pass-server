@@ -32,7 +32,7 @@ public class ImmunizationMapped extends FHIRResourceMapped<Immunization> {
     }
 
     public LocalDate getOccurrence() {
-        return convertTemporalAccessorToLocalDate(_raw.getOccurrence().as(com.ibm.fhir.model.type.DateTime.class).getValue());
+        return LocalDate.from(_raw.getOccurrence().as(com.ibm.fhir.model.type.DateTime.class).getValue());
     }
 
     public String getAdministeredVaccinationDoseId() {

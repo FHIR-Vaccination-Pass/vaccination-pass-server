@@ -22,7 +22,8 @@ public interface FHIRResourceBuilder {
                     Optional<LocalDate> earliestDateToGive,
                     Optional<LocalDate> latestDateToGive,
                     List<String> supportingImmunizationIds,
-                    boolean isDeactivated, Optional<String> fulfillingImmunizationId,
+                    boolean isDeactivated,
+                    Optional<String> fulfillingImmunizationId,
                     String supportingPopulationRecommendationId,
                     String recommendedVaccinationDoseId
             );

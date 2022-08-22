@@ -3,12 +3,12 @@ package org.fhirvp.model.mapper;
 import com.ibm.fhir.model.resource.Basic;
 import com.ibm.fhir.model.type.Extension;
 import org.fhirvp.Constants;
+import org.fhirvp.model.AgeStartEnd;
 import org.fhirvp.model.VaccinationSchemeType;
 
-import java.time.Duration;
 import java.util.Optional;
 
-public class VaccinationSchemeMapped extends FHIRResourceMapped<Basic> {
+public class VaccinationSchemeMapped extends FHIRResourceMapped<Basic> implements AgeStartEnd {
 
     private final Extension vaccinationSchemeExtension;
 
@@ -59,14 +59,16 @@ public class VaccinationSchemeMapped extends FHIRResourceMapped<Basic> {
                 .as(com.ibm.fhir.model.type.Boolean.class).getValue();
     }
 
-    public Optional<Duration> getAgeStart() {
+    @Override
+    public Optional<Long> getAgeStartInDays() {
         String fhirPath = "extension.where(url = 'ageStart').value";
-        return super.createAge(vaccinationSchemeExtension, fhirPath);
+        return super.createAgeInDays(vaccinationSchemeExtension, fhirPath);
     }
 
-    public Optional<Duration> getAgeEnd() {
+    @Override
+    public Optional<Long> getAgeEndInDays() {
         String fhirPath = "extension.where(url = 'ageEnd').value";
-        return super.createAge(vaccinationSchemeExtension, fhirPath);
+        return super.createAgeInDays(vaccinationSchemeExtension, fhirPath);
     }
 
 }

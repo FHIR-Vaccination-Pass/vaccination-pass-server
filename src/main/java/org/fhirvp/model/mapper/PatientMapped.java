@@ -3,21 +3,23 @@ package org.fhirvp.model.mapper;
 import com.ibm.fhir.model.resource.Patient;
 import com.ibm.fhir.model.type.Element;
 import org.fhirvp.Constants;
+import org.fhirvp.model.TimeUtils;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PatientMapped extends FHIRResourceMapped<Patient> {
 
-    private final List<AddressMapped> addressMappers;
+    private final List<AddressMapped> addressMapped;
 
     public PatientMapped(Patient patient) {
         super(patient);
-        this.addressMappers = createAddressMappers();
+        this.addressMapped = createAddressMapped();
     }
 
-    private List<AddressMapped> createAddressMappers() {
+    private List<AddressMapped> createAddressMapped() {
         return _raw.getAddress().stream().map(AddressMapped::new).collect(Collectors.toList());
     }
 
@@ -30,7 +32,7 @@ public class PatientMapped extends FHIRResourceMapped<Patient> {
     }
 
     public LocalDate getBirthDate() {
-        return convertTemporalAccessorToLocalDate(_raw.getBirthDate().getValue());
+        return LocalDate.from(_raw.getBirthDate().getValue());
     }
 
     public boolean isDeceased() {
@@ -54,8 +56,12 @@ public class PatientMapped extends FHIRResourceMapped<Patient> {
                 .as(com.ibm.fhir.model.type.String.class).getValue();
     }
 
-    public List<AddressMapped> getAddressMappers() {
-        return addressMappers;
+    public List<AddressMapped> getAddressMapped() {
+        return addressMapped;
+    }
+
+    public long getCurrentAgeInDays() {
+        return TimeUtils.convertPeriodToDays(Period.between(this.getBirthDate(), LocalDate.now()));
     }
 
 }

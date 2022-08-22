@@ -2,17 +2,15 @@ package org.fhirvp.model.mapper;
 
 import com.ibm.fhir.model.resource.Basic;
 import com.ibm.fhir.model.type.Extension;
-import com.ibm.fhir.model.type.Quantity;
-import com.ibm.fhir.path.FHIRPathNode;
 import io.vavr.control.Try;
 import org.fhirvp.Constants;
+import org.fhirvp.model.AgeStartEnd;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class PopulationRecommendationMapped extends FHIRResourceMapped<Basic> {
+public class PopulationRecommendationMapped extends FHIRResourceMapped<Basic> implements AgeStartEnd {
 
     private final Extension populationRecommendationExtension;
 
@@ -45,14 +43,16 @@ public class PopulationRecommendationMapped extends FHIRResourceMapped<Basic> {
         return createCodeValue(populationRecommendationExtension, fhirPath);
     }
 
-    public Optional<Duration> getAgeStart() {
+    @Override
+    public Optional<Long> getAgeStartInDays() {
         String fhirPath = "extension.where(url = 'ageStart').value";
-        return super.createAge(populationRecommendationExtension, fhirPath);
+        return super.createAgeInDays(populationRecommendationExtension, fhirPath);
     }
 
-    public Optional<Duration> getAgeEnd() {
+    @Override
+    public Optional<Long> getAgeEndInDays() {
         String fhirPath = "extension.where(url = 'ageEnd').value";
-        return super.createAge(populationRecommendationExtension, fhirPath);
+        return super.createAgeInDays(populationRecommendationExtension, fhirPath);
     }
 
     public List<LocationMapped> getLocationsMapped() {

@@ -2,7 +2,6 @@ package org.fhirvp.model.mapper;
 
 import com.ibm.fhir.model.type.Extension;
 
-import java.time.Duration;
 import java.util.Optional;
 
 public class VaccinationDoseSingleMapped extends FHIRResourceMapped<Extension> {
@@ -17,14 +16,14 @@ public class VaccinationDoseSingleMapped extends FHIRResourceMapped<Extension> {
                 .as(com.ibm.fhir.model.type.UnsignedInt.class).getValue();
     }
 
-    public Optional<Duration> getTimeframeStart() {
+    public Optional<Long> getTimeframeStartInDays() {
         String fhirPath = "extension.where(url = 'timeframeStart').value";
-        return super.createAge(_raw, fhirPath);
+        return super.createAgeInDays(_raw, fhirPath);
     }
 
-    public Optional<Duration> getTimeframeEnd() {
+    public Optional<Long> getTimeframeEndInDays() {
         String fhirPath = "extension.where(url = 'timeframeEnd').value";
-        return super.createAge(_raw, fhirPath);
+        return super.createAgeInDays(_raw, fhirPath);
     }
 
 }

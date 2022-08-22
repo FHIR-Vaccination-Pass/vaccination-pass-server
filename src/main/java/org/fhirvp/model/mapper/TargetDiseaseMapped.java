@@ -8,7 +8,7 @@ public class TargetDiseaseMapped extends FHIRResourceMapped<Basic> {
 
     private final Extension targetDiseaseExtension;
 
-    TargetDiseaseMapped(Basic basic) {
+    public TargetDiseaseMapped(Basic basic) {
         super(basic);
         this.targetDiseaseExtension = createTargetDiseaseExtension();
     }

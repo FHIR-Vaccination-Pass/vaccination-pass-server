@@ -46,7 +46,7 @@ public class VacationPlanMapped extends FHIRResourceMapped<Basic> {
         String fhirPath = "extension.where(url = 'departureDate').value";
         com.ibm.fhir.model.type.Date date = super.createExactlyOne(vacationPlanExtension, fhirPath)
                 .as(com.ibm.fhir.model.type.Date.class);
-        return convertTemporalAccessorToLocalDate(date.getValue());
+        return LocalDate.from(date.getValue());
     }
 
     public List<LocationMapped> getLocationsMapped() {

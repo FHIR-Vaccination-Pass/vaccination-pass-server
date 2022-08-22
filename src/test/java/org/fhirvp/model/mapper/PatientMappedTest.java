@@ -8,7 +8,6 @@ import com.ibm.fhir.model.type.code.NameUse;
 import org.junit.jupiter.api.Test;
 
 import java.lang.String;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
 
@@ -27,8 +26,8 @@ class PatientMappedTest {
         assert !patientMapped.isDeceased();
         assert !patientMapped.isPregnant();
         assert patientMapped.getKeycloakUsername().equals("müller");
-        assert patientMapped.getAddressMappers().get(0).getCountryCode().equals("DE");
-        assert patientMapped.getAddressMappers().get(0).getStateCode().equals("DE-BY");
+        assert patientMapped.getAddressMapped().get(0).getCountryCode().equals("DE");
+        assert patientMapped.getAddressMapped().get(0).getStateCode().equals("DE-BY");
     }
 
     private Patient generatePatient() {
