@@ -5,10 +5,14 @@ import com.ibm.fhir.model.resource.Basic;
 import com.ibm.fhir.model.resource.Bundle;
 import io.vavr.control.Try;
 import org.fhirvp.Constants;
+import org.fhirvp.model.mapper.VacationPlanMapped;
+import org.fhirvp.model.mapper.VaccinationDoseMapped;
 import org.fhirvp.ports.VaccinationDosePort;
 import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class VaccinationDosePortImpl extends FHIRResourcePortImpl<Basic> implements VaccinationDosePort {
@@ -20,10 +24,8 @@ public class VaccinationDosePortImpl extends FHIRResourcePortImpl<Basic> impleme
     }
 
     @Override
-    public Bundle search(FHIRParameters parameters) throws FHIRServerException {
-        if (parameters == null) {
-            parameters = new FHIRParameters();
-        }
+    public Bundle search(FHIRParameters searchParameters) throws FHIRServerException {
+        FHIRParameters parameters = searchParameters == null ? new FHIRParameters() : searchParameters;
         parameters.searchParam("code", "VaccinationDose");
         parameters.searchParam("_profile", Constants.PROFILE_BASE_URL + "vp-vaccination-dose");
         return super.search(parameters);
@@ -32,6 +34,16 @@ public class VaccinationDosePortImpl extends FHIRResourcePortImpl<Basic> impleme
     @Override
     public Try<Bundle> trySearch(FHIRParameters parameters) {
         return Try.of(() -> this.search(parameters));
+    }
+
+    public List<VaccinationDoseMapped> searchReturnList(FHIRParameters searchParameters) throws FHIRServerException {
+        return this.search(searchParameters).getEntry()
+                .stream().map(entry -> new VaccinationDoseMapped(entry.getResource().as(Basic.class)))
+                .collect(Collectors.toList());
+    }
+
+    public Try<List<VaccinationDoseMapped>> trySearchReturnList(FHIRParameters searchParameters) {
+        return Try.of(() -> searchReturnList(searchParameters));
     }
 
 }
