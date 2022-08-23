@@ -49,7 +49,7 @@ public class ComirnatyCreator extends MedicationCreator {
                         .build())
                 .extension(Extension.builder()
                         .url(PROFILE_BASE_URL + "vp-medication-trade-name")
-                        .value("ComirnatyCreator")
+                        .value("Comirnaty")
                         .build())
                 .extension(
                         Extension.builder()

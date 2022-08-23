@@ -77,11 +77,11 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
                                                 .build(),
                                         Extension.builder()
                                                 .url("name")
-                                                .value("SARS-COV-19")
+                                                .value("Coronavirus")
                                                 .build(),
                                         Extension.builder()
                                                 .url("description")
-                                                .value(Markdown.of("This is bad for you."))
+                                                .value(Markdown.of("Coronavirus disease (COVID-19) is an infectious disease caused by the SARS-CoV-2 virus. Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover without special treatment. However, some will become seriously ill and require medical attention."))
                                                 .build()
                                 )
                                 .build())
@@ -443,7 +443,7 @@ public class BootstrapUseCaseImpl implements BootstrapUseCase {
         var populationRecommendations = createPopulationRecommendations();
         result.getPopulationRecommendations().addAll(populationRecommendations);
 
-        var organizationBioNTech = createOrganization("BioNTech Manufacturing GmbH");
+        var organizationBioNTech = createOrganization("Biontech");
         result.getOrganizations().add(organizationBioNTech);
 
         var comirnatyResult = comirnatyCreator.create(organizationBioNTech);
