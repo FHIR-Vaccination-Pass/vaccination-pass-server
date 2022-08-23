@@ -29,6 +29,7 @@ public class FHIRNotificationClientEndpoint {
 
         // Workaround to get NotificationUseCase since @Inject doesn't work with @ClientEndpoint
         RouteNotificationUseCase routeNotificationUseCase = CDI.current().select(RouteNotificationUseCase.class).get();
-        routeNotificationUseCase.route(notification);
+        // TODO: Activate as soon as backend should react to notifications
+        //routeNotificationUseCase.route(notification);
     }
 }

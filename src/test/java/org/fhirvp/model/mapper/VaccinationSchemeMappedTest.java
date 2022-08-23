@@ -19,8 +19,8 @@ class VaccinationSchemeMappedTest {
         assert vaccinationSchemeMapped.getName().equals("MyFirstVaccinationScheme");
         assert vaccinationSchemeMapped.getType().equals(VaccinationSchemeType.STANDARD);
         assert vaccinationSchemeMapped.isPreferred();
-        assert vaccinationSchemeMapped.getAgeStart().get().toDays() == 12 * 365;
-        assert vaccinationSchemeMapped.getAgeEnd().get().toDays() == 42 * 365;
+        assert vaccinationSchemeMapped.getAgeStartInDays().get() == 12 * 365;
+        assert vaccinationSchemeMapped.getAgeEndInDays().get() == 42 * 365;
     }
 
     private Basic generateVaccinationScheme() {

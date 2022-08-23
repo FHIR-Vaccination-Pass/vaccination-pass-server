@@ -16,8 +16,8 @@ class PopulationRecommendationMappedTest {
         PopulationRecommendationMapped populationRecommendationMapped = new PopulationRecommendationMapped(generatePopulationRecommendation());
 
         assert populationRecommendationMapped.getTargetDiseaseCode().equals("disease-abc");
-        assert populationRecommendationMapped.getAgeStart().get().toDays() == 12 * 365;
-        assert populationRecommendationMapped.getAgeEnd().get().toDays() == 42 * 365;
+        assert populationRecommendationMapped.getAgeStartInDays().get() == 12 * 365;
+        assert populationRecommendationMapped.getAgeEndInDays().get() == 42 * 365;
         assert populationRecommendationMapped.getLocationsMapped().get(0).getCountryCode().equals("DE");
         assert populationRecommendationMapped.getLocationsMapped().get(0).getStateCode().get().equals("DE-BY");
     }

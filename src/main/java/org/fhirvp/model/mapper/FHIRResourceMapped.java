@@ -10,11 +10,8 @@ import com.ibm.fhir.path.FHIRPathNode;
 import com.ibm.fhir.path.evaluator.FHIRPathEvaluator;
 import io.vavr.control.Try;
 import org.fhirvp.context.FHIRPathEvaluatorProducer;
+import org.fhirvp.model.TimeUtils;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
 
 public abstract class FHIRResourceMapped<T extends AbstractVisitable> {
@@ -64,44 +61,13 @@ public abstract class FHIRResourceMapped<T extends AbstractVisitable> {
         return createExactlyOne(entryPoint, fhirPath).as(Code.class).getValue();
     }
 
-    protected Optional<Duration> createAge(Element entryPoint, String fhirPath) {
+    protected Optional<Long> createAgeInDays(Element entryPoint, String fhirPath) {
         Optional<FHIRPathNode> optionalNode = createOptionalOne(entryPoint, fhirPath);
         if (optionalNode.isEmpty()) {
             return Optional.empty();
         }
         Quantity quantity = optionalNode.get().asElementNode().element().as(Quantity.class);
-        return Optional.of(convertAgeToDuration(quantity));
-    }
-
-    protected static LocalDate convertTemporalAccessorToLocalDate(TemporalAccessor accessor) {
-        int day = accessor.get(ChronoField.DAY_OF_MONTH);
-        int month = accessor.get(ChronoField.MONTH_OF_YEAR);
-        int year = accessor.get(ChronoField.YEAR);
-        return LocalDate.of(year, month, day);
-    }
-
-    protected static Duration convertAgeToDuration(Quantity quantity) {
-        long factor;
-        switch (quantity.getCode().getValue()) {
-            case "min":
-            case "h":
-                throw new IllegalArgumentException("Codes 'min' and 'h' are unsupported for age. Use 'd', 'wk', 'mo' or 'a' instead.");
-            case "d":
-                factor = 1;
-                break;
-            case "wk":
-                factor = 7;
-                break;
-            case "mo":
-                factor = 30;
-                break;
-            case "a":
-                factor = 365;
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported code for age. Expected code from 'http://hl7.org/fhir/ValueSet/age-units' but got: " + quantity.getCode().getValue());
-        }
-        return Duration.ofDays(factor * quantity.getValue().getValue().longValue());
+        return Optional.of(TimeUtils.convertQuantityAgeToDays(quantity));
     }
 
 }

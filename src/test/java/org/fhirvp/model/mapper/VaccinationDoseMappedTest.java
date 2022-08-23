@@ -18,8 +18,8 @@ class VaccinationDoseMappedTest {
         assert vaccinationDoseMapped.getVaccinationSchemeId().equals("VaccinationScheme123");
         assert vaccinationDoseMapped.isProtected();
         assert vaccinationDoseMapped.getVaccinationDoseSingleExtension().get().getNumberInScheme() == 2;
-        assert vaccinationDoseMapped.getVaccinationDoseSingleExtension().get().getTimeframeStart().get().toDays() == 1 * 30;
-        assert vaccinationDoseMapped.getVaccinationDoseSingleExtension().get().getTimeframeEnd().get().toDays() == 3 * 30;
+        assert vaccinationDoseMapped.getVaccinationDoseSingleExtension().get().getTimeframeStartInDays().get() == 1 * 30;
+        assert vaccinationDoseMapped.getVaccinationDoseSingleExtension().get().getTimeframeEndInDays().get() == 3 * 30;
     }
 
     @Test
@@ -28,7 +28,7 @@ class VaccinationDoseMappedTest {
 
         assert vaccinationDoseMapped.getVaccinationSchemeId().equals("VaccinationScheme123");
         assert vaccinationDoseMapped.isProtected();
-        assert vaccinationDoseMapped.getVaccinationDoseRepeatingMapped().get().getInterval().toDays() == 5 * 365;
+        assert vaccinationDoseMapped.getVaccinationDoseRepeatingMapped().get().getIntervalInDays() == 5 * 365;
     }
 
     private Basic generateVaccinationDoseSingle() {

@@ -28,7 +28,7 @@ public class ImmunizationRecommendationMapped extends FHIRResourceMapped<Immuniz
     }
 
     public LocalDate getCreatedDate() {
-        return convertTemporalAccessorToLocalDate(_raw.getDate().as(com.ibm.fhir.model.type.DateTime.class).getValue());
+        return LocalDate.from(_raw.getDate().as(com.ibm.fhir.model.type.DateTime.class).getValue());
     }
 
     public String getVaccineCode() {
@@ -79,7 +79,7 @@ public class ImmunizationRecommendationMapped extends FHIRResourceMapped<Immuniz
         }
         com.ibm.fhir.model.type.DateTime dateTime = optionalNode.get().asElementNode().element()
                 .as(com.ibm.fhir.model.type.DateTime.class);
-        return Optional.of(convertTemporalAccessorToLocalDate(dateTime.getValue()));
+        return Optional.of(LocalDate.from(dateTime.getValue()));
     }
 
     public List<String> getSupportingImmunizationIds() {

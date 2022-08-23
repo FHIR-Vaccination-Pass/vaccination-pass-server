@@ -5,6 +5,7 @@ import com.ibm.fhir.client.FHIRParameters;
 import com.ibm.fhir.model.resource.Bundle;
 import com.ibm.fhir.model.resource.Resource;
 import io.vavr.control.Try;
+import org.fhirvp.Constants;
 import org.fhirvp.ports.FHIRResourcePort;
 import org.fhirvp.ports.impl.fhir.exception.FHIRServerException;
 
@@ -59,7 +60,9 @@ public abstract class FHIRResourcePortImpl<T extends Resource> implements FHIRRe
 
     @Override
     public Bundle search(FHIRParameters parameters) throws FHIRServerException {
-        var response = wrapRead(() -> fhirClient.search(resourceName, parameters), getGetFailMsg());
+        final FHIRParameters parametersFinal = parameters == null ? new FHIRParameters() : parameters;
+        parametersFinal.count(Constants.SEARCH_BUNDLE_COUNT);
+        var response = wrapRead(() -> fhirClient.search(resourceName, parametersFinal), getGetFailMsg());
         return rethrow(() -> response.getResource(Bundle.class), "FHIR Search didn't return a bundle.");
     }
 
