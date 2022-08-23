@@ -72,13 +72,13 @@ public class FHIRResourceBuilderImpl implements FHIRResourceBuilder {
         List<ImmunizationRecommendation.Recommendation.DateCriterion> dateCriteria = new LinkedList<>();
         if (dateToGive.isPresent()) {
             dateCriteria.add(buildImmunizationRecommendationDateCriterion(Constants.DATE_CRITERION_DATE, dateToGive.get()));
-        } else if (earliestDateToGive.isPresent() && latestDateToGive.isPresent()) {
-            dateCriteria.add(buildImmunizationRecommendationDateCriterion(Constants.DATE_CRITERION_EARLIEST, earliestDateToGive.get()));
-            dateCriteria.add(buildImmunizationRecommendationDateCriterion(Constants.DATE_CRITERION_LATEST, latestDateToGive.get()));
-        } else {
-            throw new IllegalArgumentException("Either dateToGive or earliestDateToGive and latestDateToGive need to be present");
         }
-
+        if (earliestDateToGive.isPresent()) {
+            dateCriteria.add(buildImmunizationRecommendationDateCriterion(Constants.DATE_CRITERION_EARLIEST, earliestDateToGive.get()));
+        }
+        if (latestDateToGive.isPresent()){
+            dateCriteria.add(buildImmunizationRecommendationDateCriterion(Constants.DATE_CRITERION_LATEST, latestDateToGive.get()));
+        }
         List<Reference> supportingImmunizations = supportingImmunizationIds.stream()
                 .map(this::buildSupportingImmunization)
                 .collect(Collectors.toList());
